@@ -4,7 +4,9 @@
   "description": "Bot para agendamento do The Collective",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "watch": "tsc -p tsconfig.json -w",
+    "test": "mocha -r ts-node/register \"tests/**/*.spec.ts\""
   },
   "repository": {
     "type": "git",
@@ -18,12 +20,22 @@
   "author": "Gabriel Ferraz",
   "license": "GPL-3.0",
   "dependencies": {
+    "@types/node": "^15.12.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
+    "inversify": "^5.1.1",
     "moment": "^2.29.1",
     "mongodb": "^3.6.9",
     "mongoose": "^5.12.13",
-    "ts-node": "^10.0.0",
+    "reflect-metadata": "^0.1.13",
     "typescript": "^4.3.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.18",
+    "@types/mocha": "^8.2.2",
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^10.0.0"
   }
 }
