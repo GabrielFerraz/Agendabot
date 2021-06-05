@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const config = require("./config.json");
 const moment = require("moment");
+const dotenv = require("dotenv").config();
 
 const client = new Discord.Client();
 const prefix = '!';
@@ -18,7 +18,7 @@ const slots = {
   8 : "22:00 às 23:30"
 }
 
-client.login(config.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN);
 
 client.on("message", async (message) => {
   if (message.author.bot) return;
