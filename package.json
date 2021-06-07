@@ -20,6 +20,7 @@
   "author": "Gabriel Ferraz",
   "license": "GPL-3.0",
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/node": "^15.12.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
