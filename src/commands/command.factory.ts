@@ -9,7 +9,7 @@ export class CommandFactory {
         return PingCommand;
     
       default:
-        return BaseCommand;
+        return undefined;
     }
   }
 }

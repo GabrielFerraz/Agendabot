@@ -22,6 +22,8 @@ export class MessageResponder {
     const commandString = args.shift().toLowerCase();
     const command = CommandFactory.getCommand(commandString);
 
+    if (!command) return Promise.reject();
+
     return command.run(message, args);
   }
 
