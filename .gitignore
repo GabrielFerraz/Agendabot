@@ -105,3 +105,7 @@ dist
 
 # Mongo Database
 db
+
+#compiled js files
+src/**/*.js
+src/**/*.js.map
