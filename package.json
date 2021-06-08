@@ -4,7 +4,7 @@
   "description": "Bot para agendamento do The Collective",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon dist/src/index.js",
+    "start": "tsc -p tsconfig.json && nodemon dist/src/index.js",
     "watch": "tsc -p tsconfig.json -w",
     "test": "mocha -r ts-node/register \"tests/**/*.spec.ts\""
   },
