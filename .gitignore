@@ -103,9 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Mongo Database
-db
-
 #compiled js files
 src/**/*.js
 src/**/*.js.map
