@@ -18,7 +18,7 @@ export class ScheduleCommand extends BaseCommand {
       const primaryTimeSlot = await TimeSlot.find({ slot: primarySlot, day: scheduleDay });
       const alternativeTimeSlot = await TimeSlot.find({ slot: alternativeSlot, day: scheduleDay });
       const previousSchedule = await TimeSlot.find({ username: username });
-      const all = await TimeSlot.find({});
+      
       console.log(previousSchedule);
 
       //verifying if user hadn't scheduled before and if there is any slot available 
@@ -26,17 +26,23 @@ export class ScheduleCommand extends BaseCommand {
         return message.react('❌');
       }
 
+      let selectedSlot;
+
+
+      if (primaryTimeSlot.length === 0) {
+        selectedSlot = primarySlot;
+      } else if (alternativeTimeSlot.length === 0) {
+        selectedSlot = alternativeSlot;
+      }
+
+      console.log(selectedSlot);
+
       const doc: TimeSlotDocument = new TimeSlot({
         user,
         username,
         day: scheduleDay,
+        slot: selectedSlot
       });
-
-      if (!primaryTimeSlot) {
-        doc.slot = primarySlot;
-      } else if (!alternativeTimeSlot) {
-        doc.slot = alternativeSlot;
-      }
 
       await doc.save();
 
