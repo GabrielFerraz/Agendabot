@@ -1,13 +1,19 @@
 {
-  "compilerOptions": {
+  "compilerOptions": 
+  {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "moduleResolution": "node",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "sourceMap": true,
     "target": "es2016",
     "lib": [
       "es6",
       "dom"
     ],
-    "sourceMap": true,
     "types": [
       // add node as an option
       "node",
@@ -17,11 +23,11 @@
       // add path to @types
       "node_modules/@types"
     ],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true
+    "experimentalDecorators": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "db"
   ]
 }
