@@ -4,7 +4,9 @@
   "description": "Bot para agendamento do The Collective",
   "main": "index.js",
   "scripts": {
+    "watch:dev": "npm-run-all --parallel watch start:dev --print-label",
     "start": "tsc -p tsconfig.json && node dist/src/index.js",
+    "start:dev": "nodemon dist/src/index.js",
     "watch": "tsc -p tsconfig.json -w",
     "test": "mocha -r ts-node/register \"tests/**/*.spec.ts\""
   },
@@ -24,13 +26,17 @@
     "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^15.12.1",
+    "@types/node-schedule": "^1.3.1",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "inversify": "^5.1.1",
     "moment": "^2.29.1",
     "mongodb": "^3.6.9",
     "mongoose": "^5.12.13",
+    "node-schedule": "^2.0.0",
+    "npm-run-all": "^4.1.5",
     "reflect-metadata": "^0.1.13",
+    "tmi.js": "^1.8.3",
     "typescript": "^4.3.2"
   },
   "devDependencies": {
