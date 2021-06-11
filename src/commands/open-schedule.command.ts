@@ -18,6 +18,9 @@ export class OpenScheduleCommand extends BaseCommand {
 
   static async run(message: Message, args: any[]) {
     try {
+      if (!message.member.roles.cache.some(r => r.name === "Admin") && !message.member.roles.cache.some(r => r.name === "Mod")) {
+        return;
+      }
       const day = args[1] ? args[1] : moment.default().weekday();
       console.log(day);
       const res = await TimeSlot.deleteOne({

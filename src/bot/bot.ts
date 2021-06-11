@@ -56,28 +56,28 @@ export class Bot {
   }
 
   initJobs() {
-    schedule.scheduleJob('0 20 11 * * *', () => {
+    schedule.scheduleJob('0 32 11 * * *', () => {
       this.alertStream(1);
     });
-    schedule.scheduleJob('0 50 12 * * *', () => {
+    schedule.scheduleJob('0 02 13 * * *', () => {
       this.alertStream(2);
     });
-    schedule.scheduleJob('0 20 14 * * *', () => {
+    schedule.scheduleJob('0 32 14 * * *', () => {
       this.alertStream(3);
     });
-    schedule.scheduleJob('0 50 15 * * *', () => {
+    schedule.scheduleJob('0 02 16 * * *', () => {
       this.alertStream(4);
     });
-    schedule.scheduleJob('0 20 17 * * *', () => {
+    schedule.scheduleJob('0 32 17 * * *', () => {
       this.alertStream(5);
     });
-    schedule.scheduleJob('0 50 18 * * *', () => {
+    schedule.scheduleJob('0 02 19 * * *', () => {
       this.alertStream(6);
     });
-    schedule.scheduleJob('0 20 20 * * *', () => {
+    schedule.scheduleJob('0 32 20 * * *', () => {
       this.alertStream(7);
     });
-    schedule.scheduleJob('0 50 21 * * *', () => {
+    schedule.scheduleJob('0 02 22 * * *', () => {
       this.alertStream(8);
     });
   }
@@ -111,6 +111,11 @@ Instruções para a live:
 
  ⚠️  Não deixe a live mutada.
 
+ ⚠️ Errou raid é BAN.
+
+ ⚠️ Não abriu live com 10 minutos de antecedência perde o horário.
+
+ ⚠️ Todos devem assistir todas as lives, não comparecimento resulta em ban.
 
  ⚠️ Entre em live com pelo menos 10 minutos de antecedência
 
