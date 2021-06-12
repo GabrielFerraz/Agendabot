@@ -85,15 +85,15 @@ export class Bot {
   }
 
   async alertStream(slot) {
-    logger.info(`Slot: ${slot}`);
+    console.log(`Slot: ${slot}`);
     const today = moment().weekday();
-    logger.info(`today: ${today}`);
+    console.log(`today: ${today}`);
     const doc = await TimeSlot.findOne({
       day: today,
       slot: slot
     });
 
-    logger.info(`CurrentLive: ${doc}`);
+    console.log(`CurrentLive: ${doc}`);
     let next;
     if (slot !== 8) {
       next = await TimeSlot.findOne({
@@ -106,7 +106,7 @@ export class Bot {
       }
     }
 
-    logger.info(`NextLive: ${next}`);
+    console.log(`NextLive: ${next}`);
 
     const channel = await this.client.channels.fetch("841322089093005363") as any;
 //     channel.send(
