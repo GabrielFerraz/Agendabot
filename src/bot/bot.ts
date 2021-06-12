@@ -5,6 +5,7 @@ import { MessageResponder } from "../services/message-responder";
 import * as schedule from "node-schedule";
 import { TimeSlot } from "../db/TimeSlot";
 import moment from "moment";
+import { logger } from "../helpers/config"
 
 @injectable()
 export class Bot {
@@ -74,20 +75,25 @@ export class Bot {
     schedule.scheduleJob('0 02 19 * * *', () => {
       this.alertStream(6);
     });
-    schedule.scheduleJob('0 32 20 * * *', () => {
+    schedule.scheduleJob('0 35 20 * * *', () => {
       this.alertStream(7);
     });
     schedule.scheduleJob('0 02 22 * * *', () => {
       this.alertStream(8);
     });
+    this.alertStream(1);
   }
 
   async alertStream(slot) {
+    logger.info(`Slot: ${slot}`);
     const today = moment().weekday();
+    logger.info(`today: ${today}`);
     const doc = await TimeSlot.findOne({
       day: today,
       slot: slot
     });
+
+    logger.info(`CurrentLive: ${doc}`);
     let next;
     if (slot !== 8) {
       next = await TimeSlot.findOne({
@@ -99,38 +105,41 @@ export class Bot {
         user: ""
       }
     }
+
+    logger.info(`NextLive: ${next}`);
+
     const channel = await this.client.channels.fetch("841322089093005363") as any;
-    channel.send(
-      `⚠️ COLLECTIVE STREAMS ⚠️
+//     channel.send(
+//       `⚠️ COLLECTIVE STREAMS ⚠️
 
-@everyone
+// @everyone
 
-Instruções para a live:
+// Instruções para a live:
 
- ⚠️  Não falar sobre o grupo no chat.
+//  ⚠️  Não falar sobre o grupo no chat.
 
- ⚠️  Não deixe a live mutada.
+//  ⚠️  Não deixe a live mutada.
 
- ⚠️ Errou raid é BAN.
+//  ⚠️ Errou raid é BAN.
 
- ⚠️ Não abriu live com 10 minutos de antecedência perde o horário.
+//  ⚠️ Não abriu live com 10 minutos de antecedência perde o horário.
 
- ⚠️ Todos devem assistir todas as lives, não comparecimento resulta em ban.
+//  ⚠️ Todos devem assistir todas as lives, não comparecimento resulta em ban.
 
- ⚠️ Entre em live com pelo menos 10 minutos de antecedência
+//  ⚠️ Entre em live com pelo menos 10 minutos de antecedência
 
-LINK: https://twitch.tv/${doc.user}
+// LINK: https://twitch.tv/${doc.user}
 
-⏰ ${this.slots[slot]} ⏰
+// ⏰ ${this.slots[slot]} ⏰
 
-Próxima Raid: /raid ${next.user}
+// Próxima Raid: /raid ${next.user}
 
-PARA PASSAR RAID É SÓ DIGITAR /raid "nick do próximo streamer"
+// PARA PASSAR RAID É SÓ DIGITAR /raid "nick do próximo streamer"
 
 
-Galera antes de passar o Raid, SEMPRE verificar se o próximo streamer está online.
+// Galera antes de passar o Raid, SEMPRE verificar se o próximo streamer está online.
 
-LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABEMOS QUEM ESTÁ NA LIVE E QUEM NÃO ESTÁ`
-    );
+// LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABEMOS QUEM ESTÁ NA LIVE E QUEM NÃO ESTÁ`
+//     );
   }
 }
