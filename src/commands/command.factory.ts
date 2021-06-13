@@ -1,9 +1,11 @@
 import { AllowCommand } from "./allow.repeat.command";
 import { BaseCommand } from "./base.command";
 import { ListCommand } from "./list.command";
-import { OpenScheduleCommand } from "./open-schedule.command";
+import { ReleaseScheduleCommand } from "./release-schedule.command";
 import { PingCommand } from "./ping.command";
 import { ScheduleCommand } from "./schedule.command";
+import { OpenScheduleCommand } from "./open-schedule.command";
+import { CloseScheduleCommand } from "./close-schedule.command";
 
 export class CommandFactory {
 
@@ -15,10 +17,14 @@ export class CommandFactory {
         return ScheduleCommand;
       case ListCommand.command:
         return ListCommand;
-      case OpenScheduleCommand.command:
-        return OpenScheduleCommand;
+      case ReleaseScheduleCommand.command:
+        return ReleaseScheduleCommand;
       case AllowCommand.command:
         return AllowCommand;
+      case OpenScheduleCommand.command:
+        return OpenScheduleCommand;
+      case CloseScheduleCommand.command:
+        return CloseScheduleCommand;
       default:
         return undefined;
     }

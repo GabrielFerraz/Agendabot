@@ -9,7 +9,7 @@ import { logger } from "../helpers/config"
 
 @injectable()
 export class Bot {
-  private client: Client;
+  public client: Client;
   private readonly token: string;
   private messageResponder: MessageResponder;
   private slots = {
