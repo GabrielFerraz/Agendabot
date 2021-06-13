@@ -22,6 +22,7 @@ export class Bot {
     7: "20:30 às 22:00",
     8: "22:00 às 23:30"
   }
+  public allowed = false;
 
   constructor(
     @inject(TYPES.Client) client: Client,
@@ -57,31 +58,31 @@ export class Bot {
   }
 
   initJobs() {
-    schedule.scheduleJob('0 32 11 * * *', () => {
+    schedule.scheduleJob('0 32 14 * * 1-6', () => {
       this.alertStream(1);
     });
-    schedule.scheduleJob('0 02 13 * * *', () => {
+    schedule.scheduleJob('0 02 16 * * 1-6', () => {
       this.alertStream(2);
     });
-    schedule.scheduleJob('0 32 14 * * *', () => {
+    schedule.scheduleJob('0 32 17 * * 1-6', () => {
       this.alertStream(3);
     });
-    schedule.scheduleJob('0 02 16 * * *', () => {
+    schedule.scheduleJob('0 02 19 * * 1-6', () => {
       this.alertStream(4);
     });
-    schedule.scheduleJob('0 32 17 * * *', () => {
+    schedule.scheduleJob('0 32 20 * * 1-6', () => {
       this.alertStream(5);
     });
-    schedule.scheduleJob('0 02 19 * * *', () => {
+    schedule.scheduleJob('0 02 22 * * 1-6', () => {
       this.alertStream(6);
     });
-    schedule.scheduleJob('0 35 20 * * *', () => {
+    schedule.scheduleJob('0 35 23 * * 1-6', () => {
       this.alertStream(7);
     });
-    schedule.scheduleJob('0 02 22 * * *', () => {
+    schedule.scheduleJob('0 02 01 * * 1-6', () => {
       this.alertStream(8);
     });
-    this.alertStream(1);
+    // this.alertStream(1);
   }
 
   async alertStream(slot) {
@@ -109,37 +110,37 @@ export class Bot {
     console.log(`NextLive: ${next}`);
 
     const channel = await this.client.channels.fetch("841322089093005363") as any;
-//     channel.send(
-//       `⚠️ COLLECTIVE STREAMS ⚠️
+    channel.send(
+      `⚠️ COLLECTIVE STREAMS ⚠️
 
-// @everyone
+@everyone
 
-// Instruções para a live:
+Instruções para a live:
 
-//  ⚠️  Não falar sobre o grupo no chat.
+ ⚠️  Não falar sobre o grupo no chat.
 
-//  ⚠️  Não deixe a live mutada.
+ ⚠️  Não deixe a live mutada.
 
-//  ⚠️ Errou raid é BAN.
+ ⚠️ Errou raid é BAN.
 
-//  ⚠️ Não abriu live com 10 minutos de antecedência perde o horário.
+ ⚠️ Não abriu live com 10 minutos de antecedência perde o horário.
 
-//  ⚠️ Todos devem assistir todas as lives, não comparecimento resulta em ban.
+ ⚠️ Todos devem assistir todas as lives, não comparecimento resulta em ban.
 
-//  ⚠️ Entre em live com pelo menos 10 minutos de antecedência
+ ⚠️ Entre em live com pelo menos 10 minutos de antecedência
 
-// LINK: https://twitch.tv/${doc.user}
+LINK: https://twitch.tv/${doc.user}
 
-// ⏰ ${this.slots[slot]} ⏰
+⏰ ${this.slots[slot]} ⏰
 
-// Próxima Raid: /raid ${next.user}
+Próxima Raid: /raid ${next.user}
 
-// PARA PASSAR RAID É SÓ DIGITAR /raid "nick do próximo streamer"
+PARA PASSAR RAID É SÓ DIGITAR /raid "nick do próximo streamer"
 
 
-// Galera antes de passar o Raid, SEMPRE verificar se o próximo streamer está online.
+Galera antes de passar o Raid, SEMPRE verificar se o próximo streamer está online.
 
-// LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABEMOS QUEM ESTÁ NA LIVE E QUEM NÃO ESTÁ`
-//     );
+LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABEMOS QUEM ESTÁ NA LIVE E QUEM NÃO ESTÁ`
+    );
   }
 }

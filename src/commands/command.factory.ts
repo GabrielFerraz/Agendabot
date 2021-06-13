@@ -1,3 +1,4 @@
+import { AllowCommand } from "./allow.repeat.command";
 import { BaseCommand } from "./base.command";
 import { ListCommand } from "./list.command";
 import { OpenScheduleCommand } from "./open-schedule.command";
@@ -16,6 +17,8 @@ export class CommandFactory {
         return ListCommand;
       case OpenScheduleCommand.command:
         return OpenScheduleCommand;
+      case AllowCommand.command:
+        return AllowCommand;
       default:
         return undefined;
     }
