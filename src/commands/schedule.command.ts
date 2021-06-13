@@ -32,7 +32,10 @@ export class ScheduleCommand extends BaseCommand {
       console.log("Allowed repeat: ", bot.allowed);
 
       // //verifying if user hadn't scheduled before and if there is any slot available 
-      if ((primaryTimeSlot.length >= 1 && alternativeTimeSlot.length >= 1) || (previousSchedule.length >= 1 && !bot.allowed)) {
+      if (
+        (primaryTimeSlot.length >= 1 && alternativeTimeSlot.length >= 1) || 
+        (previousSchedule.length >= 1 && !bot.allowed) || 
+        (previousSchedule.length >= 2 && bot.allowed)) {
         return message.react('❌');
       }
 

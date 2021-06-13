@@ -11,7 +11,6 @@ export class AllowCommand extends BaseCommand {
   static async run(message: Message) {
     let bot = container.get<Bot>(TYPES.Bot);
     // return message.reply("Pong!");
-    console.log(bot.allowed);
-    bot.allowed = !allowed;
+    bot.allowed = true;
   }
 }
