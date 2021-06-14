@@ -123,11 +123,11 @@ Instruções para a live:
 
  ⚠️ Errou raid é BAN.
 
- ⚠️ Não abriu live com 10 minutos de antecedência perde o horário.
+ ⚠️ Não abriu live com 20 minutos de antecedência perde o horário.
 
  ⚠️ Todos devem assistir todas as lives, não comparecimento resulta em ban.
 
- ⚠️ Entre em live com pelo menos 10 minutos de antecedência
+ ⚠️ Entre em live com pelo menos 20 minutos de antecedência
 
 LINK: https://twitch.tv/${doc.user}
 
