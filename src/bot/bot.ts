@@ -6,6 +6,7 @@ import * as schedule from "node-schedule";
 import { TimeSlot } from "../db/TimeSlot";
 import moment from "moment";
 import { logger } from "../helpers/config"
+import { createSubtract } from "typescript";
 
 @injectable()
 export class Bot {
@@ -87,7 +88,7 @@ export class Bot {
 
   async alertStream(slot) {
     console.log(`Slot: ${slot}`);
-    const today = moment().weekday();
+    const today = slot === 8 ? moment().subtract(1, 'd').weekday() : moment().weekday();
     console.log(`today: ${today}`);
     const doc = await TimeSlot.findOne({
       day: today,
