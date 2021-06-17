@@ -59,28 +59,28 @@ export class Bot {
   }
 
   initJobs() {
-    schedule.scheduleJob('0 32 14 * * 1-6', () => {
+    schedule.scheduleJob('0 20 11 * * 1-6', () => {
       this.alertStream(1);
     });
-    schedule.scheduleJob('0 02 16 * * 1-6', () => {
+    schedule.scheduleJob('0 02 13 * * 1-6', () => {
       this.alertStream(2);
     });
-    schedule.scheduleJob('0 32 17 * * 1-6', () => {
+    schedule.scheduleJob('0 32 14 * * 1-6', () => {
       this.alertStream(3);
     });
-    schedule.scheduleJob('0 02 19 * * 1-6', () => {
+    schedule.scheduleJob('0 02 16 * * 1-6', () => {
       this.alertStream(4);
     });
-    schedule.scheduleJob('0 32 20 * * 1-6', () => {
+    schedule.scheduleJob('0 32 17 * * 1-6', () => {
       this.alertStream(5);
     });
-    schedule.scheduleJob('0 02 22 * * 1-6', () => {
+    schedule.scheduleJob('0 02 19 * * 1-6', () => {
       this.alertStream(6);
     });
-    schedule.scheduleJob('0 35 23 * * 1-6', () => {
+    schedule.scheduleJob('0 35 20 * * 1-6', () => {
       this.alertStream(7);
     });
-    schedule.scheduleJob('0 02 01 * * 1-6', () => {
+    schedule.scheduleJob('0 02 22 * * 1-6', () => {
       this.alertStream(8);
     });
     // this.alertStream(1);
@@ -88,7 +88,7 @@ export class Bot {
 
   async alertStream(slot) {
     console.log(`Slot: ${slot}`);
-    const today = slot === 8 ? moment().subtract(1, 'd').weekday() : moment().weekday();
+    const today = moment().weekday();
     console.log(`today: ${today}`);
     const doc = await TimeSlot.findOne({
       day: today,
