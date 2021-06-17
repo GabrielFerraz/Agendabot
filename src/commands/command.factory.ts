@@ -6,6 +6,7 @@ import { PingCommand } from "./ping.command";
 import { ScheduleCommand } from "./schedule.command";
 import { OpenScheduleCommand } from "./open-schedule.command";
 import { CloseScheduleCommand } from "./close-schedule.command";
+import { UpdateCommand } from "./update.command";
 
 export class CommandFactory {
 
@@ -25,6 +26,8 @@ export class CommandFactory {
         return OpenScheduleCommand;
       case CloseScheduleCommand.command:
         return CloseScheduleCommand;
+      case UpdateCommand.command:
+        return UpdateCommand;
       default:
         return undefined;
     }

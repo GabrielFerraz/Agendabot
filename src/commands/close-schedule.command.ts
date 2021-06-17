@@ -19,17 +19,17 @@ export class CloseScheduleCommand extends BaseCommand {
 
       // find specific role - enter name of a role you create here
       let streamerRole = roles.cache.find(r => r.name === 'Streamer');
-      const general = await bot.client.channels.fetch("838997384377663518") as TextChannel;
+      const general = await bot.client.channels.fetch("850750258568757321") as TextChannel;
       await general.send(`@everyone O agendamento está encerrado`);
-      const channel = await bot.client.channels.fetch("849670069138489344") as TextChannel;
-      await channel.overwritePermissions(
-        [
-          {
-            id: streamerRole.id,
-            deny: ['SEND_MESSAGES']
-          }
-        ]
-      )
+      const channel = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      const permissions = channel.permissionOverwrites.map(rolePermissions => {
+        // let role = message.guild.roles.cache.get();
+        if (rolePermissions.id === streamerRole.id) {
+          rolePermissions.allow = rolePermissions.allow.remove('SEND_MESSAGES');
+          rolePermissions.deny = rolePermissions.deny.add('SEND_MESSAGES');
+        }
+      });
+      channel.overwritePermissions(channel.permissionOverwrites)
       bot.allowed = false;
       
       

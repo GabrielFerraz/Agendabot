@@ -21,20 +21,25 @@ export class OpenScheduleCommand extends BaseCommand {
       let streamerRole = roles.cache.find(r => r.name === 'Streamer');
       // 838997384377663518 - 『💬』chat-livre
       // 849670069138489344 - 『📒』reservar-horários
-      const general = await bot.client.channels.fetch("838997384377663518") as TextChannel;
+      // 850750258568757321 - geral
+      const general = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      console.log( ...general.permissionOverwrites );
+      
+
+      console.log(general.permissionOverwrites);
       general.send(`@everyone O agendamento está aberto.
 Lembrando que o agendamento será feito pelo comando \`!agendar <nomeDoSeuCanal> <HorarioPrincipal> <HorárioSecundário(OPCIONAL)>\`
 Ex.:
 \`!agendar GabrielFrrz 4\``)
-      const channel = await bot.client.channels.fetch("849670069138489344") as TextChannel;
-      channel.overwritePermissions(
-        [
-          {
-            id: streamerRole.id,
-            allow: ['SEND_MESSAGES']
-          }
-        ]
-      )
+      const channel = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      const permissions = channel.permissionOverwrites.map(rolePermissions => {
+        // let role = message.guild.roles.cache.get();
+        if (rolePermissions.id === streamerRole.id) {
+          rolePermissions.allow = rolePermissions.allow.add('SEND_MESSAGES');
+          rolePermissions.deny = rolePermissions.deny.remove('SEND_MESSAGES');
+        }
+      });
+      channel.overwritePermissions(channel.permissionOverwrites)
       
       
     } catch(e) {

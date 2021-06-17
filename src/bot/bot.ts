@@ -40,7 +40,7 @@ export class Bot {
       // return;
       const channel = message.channel as any;
       if (message.author.bot || !channel.name || channel.name !== "『📒』reservar-horários") {
-        console.log('Ignoring bot message!')
+        // console.log('Ignoring bot message!')
         return;
       }
       // const channel = message.channel as TextChannel;
