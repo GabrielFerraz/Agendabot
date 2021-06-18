@@ -24,6 +24,7 @@ export class Bot {
     8: "22:00 às 23:30"
   }
   public allowed = false;
+  public scheduleMessageId: string;
 
   constructor(
     @inject(TYPES.Client) client: Client,
@@ -33,6 +34,7 @@ export class Bot {
     this.token = token;
     this.messageResponder = messageResponder;
     this.initJobs();
+    this.scheduleMessageId = "";
   }
 
   public listen(): Promise<string> {
@@ -202,6 +204,7 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
 
       // 838997384377663518 - 『💬』chat-livre
       // 849670069138489344 - 『📒』reservar-horários
+      // 838996583365476352 - 『📒』agendamentos
       // 850750258568757321 - geral
       const general = await this.client.channels.fetch("838997384377663518") as TextChannel;
       await general.send(`@everyone O agendamento está aberto para todos`);

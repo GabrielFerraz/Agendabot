@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, TextChannel } from "discord.js";
 import { BaseCommand } from "./base.command";
 import { TimeSlot, TimeSlotDocument } from "../db/TimeSlot";
 import { Model } from "mongoose";
@@ -76,6 +76,7 @@ export class ScheduleCommand extends BaseCommand {
 
       await message.reply(`Horário das ${slots[selectedSlot]} agendado`);
       await message.react('✅');
+      
 
       const all = await TimeSlot.find({day: scheduleDay});
       if (all.length === 8) {
@@ -87,6 +88,25 @@ export class ScheduleCommand extends BaseCommand {
       console.log(error);
     }
     
+  }
+
+  async sendScheduleMessage(day) {
+    let bot = container.get<Bot>(TYPES.Bot);
+    const localMoment = moment.default().locale("pt-br");
+    const channel = await bot.client.channels.fetch("838996583365476352") as TextChannel;
+    const all = await TimeSlot.find({day: day});
+    let messageContent = `⠀⠀⠀⏰  **Horários**  ⏰ \n📅 ${localMoment.localeData().weekdays(day)}`
+
+    for (const key in slots) {
+      if (Object.prototype.hasOwnProperty.call(slots, key)) {
+        const element = slots[key];
+        const user = all.find(el => el.slot == parseInt(key));
+        messageContent += ``
+      }
+    }
+    if (bot.scheduleMessageId.length > 0) {
+      const message = channel.messages.cache.find(m => m.id === "bot.scheduleMessageId")
+    }
   }
 
 }
