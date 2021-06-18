@@ -22,7 +22,7 @@ export class OpenScheduleCommand extends BaseCommand {
       // 838997384377663518 - 『💬』chat-livre
       // 849670069138489344 - 『📒』reservar-horários
       // 850750258568757321 - geral
-      const general = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      const general = await bot.client.channels.fetch("838997384377663518") as TextChannel;
       console.log( ...general.permissionOverwrites );
       
 
@@ -31,7 +31,7 @@ export class OpenScheduleCommand extends BaseCommand {
 Lembrando que o agendamento será feito pelo comando \`!agendar <nomeDoSeuCanal> <HorarioPrincipal> <HorárioSecundário(OPCIONAL)>\`
 Ex.:
 \`!agendar GabrielFrrz 4\``)
-      const channel = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      const channel = await bot.client.channels.fetch("849670069138489344") as TextChannel;
       const permissions = channel.permissionOverwrites.map(rolePermissions => {
         // let role = message.guild.roles.cache.get();
         if (rolePermissions.id === streamerRole.id) {

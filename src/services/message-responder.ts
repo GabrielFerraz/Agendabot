@@ -18,7 +18,7 @@ export class MessageResponder {
   handle(message: Message): Promise<Message | Message[]> {
     if (!this.isAccepted(message)) Promise.reject();
     const commandBody = message.content.slice(this.prefix.length);
-    const args = commandBody.split(' ');
+    const args = commandBody.split(/[ ]+/);
     const commandString = args.shift().toLowerCase();
     const command = CommandFactory.getCommand(commandString);
     console.log(args);

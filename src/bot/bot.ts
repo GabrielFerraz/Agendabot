@@ -83,6 +83,12 @@ export class Bot {
     schedule.scheduleJob('0 02 22 * * 1-6', () => {
       this.alertStream(8);
     });
+    schedule.scheduleJob('0 30 19 * * 0-5', () => {
+      this.toggleSchedule(true);
+    });
+    schedule.scheduleJob('0 30 22 * * 0-5', () => {
+      this.allowReschedule();
+    });
     // this.alertStream(1);
   }
 
@@ -143,5 +149,67 @@ Galera antes de passar o Raid, SEMPRE verificar se o próximo streamer está onl
 
 LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABEMOS QUEM ESTÁ NA LIVE E QUEM NÃO ESTÁ`
     );
+  }
+
+  async toggleSchedule(open:boolean) {
+    try {
+      
+      let roles = (await this.client.guilds.fetch("835150650706362419")).roles; // collection
+
+      // find specific role - enter name of a role you create here
+      let streamerRole = roles.cache.find(r => r.name === 'Streamer');
+      // 838997384377663518 - 『💬』chat-livre
+      // 849670069138489344 - 『📒』reservar-horários
+      // 850750258568757321 - geral
+      const general = await this.client.channels.fetch("838997384377663518") as TextChannel;
+      console.log(...general.permissionOverwrites);
+
+
+      console.log(general.permissionOverwrites);
+      if (open) {
+        general.send(`@everyone O agendamento está aberto para quem não fez live essa semana.
+  Lembrando que o agendamento será feito pelo comando \`!agendar <nomeDoSeuCanal> <HorarioPrincipal [0-8] > <HorárioSecundário(OPCIONAL)[0-8]>\`
+  Ex.:
+  \`!agendar GabrielFrrz 4\``)
+      } else {
+        await general.send(`@everyone O agendamento está encerrado`);
+        this.allowed = false;
+      }
+      const channel = await this.client.channels.fetch("849670069138489344") as TextChannel;
+      const permissions = channel.permissionOverwrites.map(rolePermissions => {
+        // let role = message.guild.roles.cache.get();
+        if (rolePermissions.id === streamerRole.id) {
+          if(open){
+            rolePermissions.allow = rolePermissions.allow.add('SEND_MESSAGES');
+            rolePermissions.deny = rolePermissions.deny.remove('SEND_MESSAGES');
+          } else {
+            rolePermissions.allow = rolePermissions.allow.remove('SEND_MESSAGES');
+            rolePermissions.deny = rolePermissions.deny.add('SEND_MESSAGES');
+          }
+        }
+      });
+      channel.overwritePermissions(channel.permissionOverwrites)
+
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async allowReschedule() {
+    try {
+
+
+      // 838997384377663518 - 『💬』chat-livre
+      // 849670069138489344 - 『📒』reservar-horários
+      // 850750258568757321 - geral
+      const general = await this.client.channels.fetch("838997384377663518") as TextChannel;
+      await general.send(`@everyone O agendamento está aberto para todos`);
+      this.allowed = false;
+
+
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

@@ -13,14 +13,22 @@ export class ScheduleCommand extends BaseCommand {
 
   static async run(message: Message, args: any[]) {
     try {
-
+      if (!/!agendar [\w]+([ ]+[1-8]{1}){1,2}$/.test(message.content)) {
+        return await message.reply(`Por Favor mandar no formato:\n\`!agendar <nomeDoSeuCanal> <HorarioPrincipal de 0 a 8> <horárioSecundário de 0 a 8(OPCIONAL)>\`\n ex.: \`!agendar Bot 1 2\``);
+      }
+      if (!args[1]) {
+        return await message.reply(`Por Favor mandar o horário preferencial de 1 a 8.`);
+      }
       let bot = container.get<Bot>(TYPES.Bot);
       const user: string = args[0];
       const username: string = user.toLowerCase();
+      
       const primarySlot: number = args[1];
       const alternativeSlot: number = args[2] ? args[2] : args[1];
       console.log(args[2]);
-      const scheduleDay = moment.default().add(1, 'd').weekday();
+      const format = 'hh:mm:ss';
+      const checkTime = moment.default().isBetween(moment.default('00:00:00', format), moment.default('11:00:00', format))
+      const scheduleDay = checkTime ? moment.default().weekday() : moment.default().add(1, 'd').weekday();
 
       const primaryTimeSlot = await TimeSlot.find({ slot: primarySlot, day: scheduleDay });
       const alternativeTimeSlot = await TimeSlot.find({ slot: alternativeSlot, day: scheduleDay });
@@ -32,15 +40,20 @@ export class ScheduleCommand extends BaseCommand {
       console.log("Allowed repeat: ", bot.allowed);
 
       // //verifying if user hadn't scheduled before and if there is any slot available 
-      if (
-        (primaryTimeSlot.length >= 1 && alternativeTimeSlot.length >= 1) || 
-        (previousSchedule.length >= 1 && !bot.allowed) || 
-        (previousSchedule.length >= 2 && bot.allowed)) {
-        return message.react('❌');
+      if (primaryTimeSlot.length >= 1 && alternativeTimeSlot.length >= 1) {
+        await message.reply(`Horário(s) já preenchido(s).`);
+        return await message.react('❌');
+      }
+      if (previousSchedule.length >= 1 && !bot.allowed) {
+        await message.reply(`Agendamento aberto somente para quem não fez agendamento na semana.`);
+        return await message.react('❌');
+      }
+      if (previousSchedule.length >= 2 && bot.allowed) {
+        await message.reply(`Você já agendou duas vezes essa semana.`);
+        return await message.react('❌');
       }
 
       let selectedSlot;
-
 
       if (primaryTimeSlot.length === 0) {
         selectedSlot = primarySlot;
@@ -61,9 +74,15 @@ export class ScheduleCommand extends BaseCommand {
 
       await doc.save();
 
-      message.reply(`Horário das ${slots[selectedSlot]} agendado`);
+      await message.reply(`Horário das ${slots[selectedSlot]} agendado`);
+      await message.react('✅');
 
-      return message.react('✅');
+      const all = await TimeSlot.find({day: scheduleDay});
+      if (all.length === 8) {
+        bot.toggleSchedule(false);
+      }
+
+      return;
     } catch (error) {
       console.log(error);
     }
