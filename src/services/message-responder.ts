@@ -16,7 +16,7 @@ export class MessageResponder {
   }
 
   handle(message: Message): Promise<Message | Message[]> {
-    if (!this.isAccepted(message)) Promise.reject();
+    if (!this.isAccepted(message)) return Promise.reject();
     const commandBody = message.content.slice(this.prefix.length);
     const args = commandBody.split(/[ ]+/);
     const commandString = args.shift().toLowerCase();
