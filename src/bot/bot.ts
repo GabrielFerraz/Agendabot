@@ -3,7 +3,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../types/types";
 import { MessageResponder } from "../services/message-responder";
 import * as schedule from "node-schedule";
-import { TimeSlot } from "../db/TimeSlot";
+import { TimeSlot, TimeSlotHistory } from "../db/TimeSlot";
 import moment from "moment";
 import { logger } from "../helpers/config"
 import { createSubtract } from "typescript";
@@ -91,6 +91,9 @@ export class Bot {
     schedule.scheduleJob('0 30 22 * * 0-5', () => {
       this.allowReschedule();
     });
+    schedule.scheduleJob('0 0 10 * * 0', () => {
+      this.clearDb();
+    });
     // this.alertStream(1);
   }
 
@@ -153,9 +156,9 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
     );
   }
 
-  async toggleSchedule(open:boolean) {
+  async toggleSchedule(open: boolean) {
     try {
-      
+
       let roles = (await this.client.guilds.fetch("835150650706362419")).roles; // collection
 
       // find specific role - enter name of a role you create here
@@ -181,7 +184,7 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
       const permissions = channel.permissionOverwrites.map(rolePermissions => {
         // let role = message.guild.roles.cache.get();
         if (rolePermissions.id === streamerRole.id) {
-          if(open){
+          if (open) {
             rolePermissions.allow = rolePermissions.allow.add('SEND_MESSAGES');
             rolePermissions.deny = rolePermissions.deny.remove('SEND_MESSAGES');
           } else {
@@ -206,13 +209,22 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
       // 849670069138489344 - 『📒』reservar-horários
       // 838996583365476352 - 『📒』agendamentos
       // 850750258568757321 - geral
-      const general = await this.client.channels.fetch("838997384377663518") as TextChannel;
-      await general.send(`@everyone O agendamento está aberto para todos`);
-      this.allowed = false;
-
+      const day = moment().add(1, 'd').weekday();
+      const daySchedules = await TimeSlot.find({ day: day });
+      if (daySchedules.length < 8) {
+        const general = await this.client.channels.fetch("838997384377663518") as TextChannel;
+        await general.send(`@everyone O agendamento está aberto para todos`);
+        this.allowed = true;
+      }
 
     } catch (e) {
       console.log(e);
     }
+  }
+
+  async clearDb() {
+    await TimeSlot.updateMany({}, { $set: { week: moment().weekYear() } });
+    await TimeSlotHistory.insertMany(await TimeSlot.find({}));
+    await TimeSlot.deleteMany({});
   }
 }
