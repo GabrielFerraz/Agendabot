@@ -41,7 +41,11 @@ export class Bot {
     this.client.on('message', (message: Message) => {
       // return;
       const channel = message.channel as any;
-      if (message.author.bot || !channel.name || channel.name !== "『📒』reservar-horários") {
+      const allowedChannels = [
+        "》🔐staff-discussão",
+        "『📒』reservar-horários"
+      ]
+      if (message.author.bot || !channel.name || !allowedChannels.includes(channel.name)) {
         // console.log('Ignoring bot message!')
         return;
       }
