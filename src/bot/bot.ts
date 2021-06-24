@@ -215,7 +215,7 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
       // 850750258568757321 - geral
       const day = moment().add(1, 'd').weekday();
       const daySchedules = await TimeSlot.find({ day: day });
-      if (daySchedules.length < 8) {
+      if (daySchedules.length < 8 && !this.allowed) {
         const general = await this.client.channels.fetch("838997384377663518") as TextChannel;
         await general.send(`@everyone O agendamento está aberto para todos`);
         this.allowed = true;
