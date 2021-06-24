@@ -7,6 +7,8 @@ import { TimeSlot, TimeSlotHistory } from "../db/TimeSlot";
 import moment from "moment";
 import { logger } from "../helpers/config"
 import { createSubtract } from "typescript";
+import axios from "axios";
+import { config } from "../helpers/config";
 
 @injectable()
 export class Bot {
@@ -69,26 +71,50 @@ export class Bot {
     schedule.scheduleJob('0 20 11 * * 1-6', () => {
       this.alertStream(1);
     });
+    schedule.scheduleJob('0 10 12 * * 1-6', () => {
+      this.getAttendenceList(1);
+    });
     schedule.scheduleJob('0 02 13 * * 1-6', () => {
       this.alertStream(2);
+    });
+    schedule.scheduleJob('0 40 13 * * 1-6', () => {
+      this.getAttendenceList(2);
     });
     schedule.scheduleJob('0 32 14 * * 1-6', () => {
       this.alertStream(3);
     });
+    schedule.scheduleJob('0 10 15 * * 1-6', () => {
+      this.getAttendenceList(3);
+    });
     schedule.scheduleJob('0 02 16 * * 1-6', () => {
       this.alertStream(4);
+    });
+    schedule.scheduleJob('0 40 16 * * 1-6', () => {
+      this.getAttendenceList(4);
     });
     schedule.scheduleJob('0 32 17 * * 1-6', () => {
       this.alertStream(5);
     });
+    schedule.scheduleJob('0 10 17 * * 1-6', () => {
+      this.getAttendenceList(5);
+    });
     schedule.scheduleJob('0 02 19 * * 1-6', () => {
       this.alertStream(6);
+    });
+    schedule.scheduleJob('0 40 19 * * 1-6', () => {
+      this.getAttendenceList(6);
     });
     schedule.scheduleJob('0 35 20 * * 1-6', () => {
       this.alertStream(7);
     });
+    schedule.scheduleJob('0 30 21 * * 1-6', () => {
+      this.getAttendenceList(7);
+    });
     schedule.scheduleJob('0 02 22 * * 1-6', () => {
       this.alertStream(8);
+    });
+    schedule.scheduleJob('0 00 23 * * 1-6', () => {
+      this.getAttendenceList(8);
     });
     schedule.scheduleJob('0 30 19 * * 0-5', () => {
       this.toggleSchedule(true);
@@ -231,5 +257,24 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
     await TimeSlot.updateMany({}, { $set: { week: moment().weekYear() } });
     await TimeSlotHistory.insertMany(await TimeSlot.find({}));
     await TimeSlot.deleteMany({});
+  }
+
+  async getAttendenceList(slot) {
+    console.log(`Slot: ${slot}`);
+    const today = moment().weekday();
+    console.log(`today: ${today}`);
+    const doc = await TimeSlot.findOne({
+      day: today,
+      slot: slot
+    });
+    await axios.get(`http://tmi.twitch.tv/group/user/${doc.username}/chatters`).then(async (res) => {
+      const attendence = await this.client.channels.fetch(config.presenca) as TextChannel;
+      const viewers = res.data.chatters.viewers.map((el) => el.replace(/_/g, "\\_"));
+      const moderators = res.data.chatters.moderators.map((el) => el.replace(/_/g, "\\_"));
+      const vips = res.data.chatters.vips.map((el) => el.replace(/_/g, "\\_"));
+      console.log(viewers);
+      let message = `Presença da live de ${this.slots[slot]}\n` + moderators.join(`\n`) + vips.join(`\n`) + viewers.join(`\n`);
+      await attendence.send(message);
+    })
   }
 }

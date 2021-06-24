@@ -1,4 +1,6 @@
 import getLogger from "./Logger";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const logger = getLogger();
 export const slots = {
@@ -13,3 +15,13 @@ export const slots = {
 };
 
 export var allowed = false;
+
+class Config {
+  // dev environment variables
+  public chatLivre: string = process.env.CHAT_LIVRE!;
+  public presenca: string = process.env.PRESENCA!;
+  public reservarHorarios: string = process.env.RESERVAR_HORARIOS!;
+  public staff: string = process.env.STAFF!;
+}
+
+export const config =  new Config();
