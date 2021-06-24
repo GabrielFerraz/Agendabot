@@ -7,6 +7,7 @@ import { ScheduleCommand } from "./schedule.command";
 import { OpenScheduleCommand } from "./open-schedule.command";
 import { CloseScheduleCommand } from "./close-schedule.command";
 import { UpdateCommand } from "./update.command";
+import { ListCommandsCommand } from "./list-commands.command";
 
 export class CommandFactory {
 
@@ -28,6 +29,8 @@ export class CommandFactory {
         return CloseScheduleCommand;
       case UpdateCommand.command:
         return UpdateCommand;
+      case ListCommandsCommand.command:
+        return ListCommandsCommand;
       default:
         return undefined;
     }
