@@ -28,7 +28,7 @@ export class ListCommandsCommand extends BaseCommand {
     Se o dia não for adicionado, mostra para o dia em que o comando foi enviado.
     \`\*\*!comandos\`\*\*
     lista todos os comandos do bot
-    `)
+    `).catch(error => console.log(error))
 
   }
 }
