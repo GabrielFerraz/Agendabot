@@ -8,9 +8,27 @@ export class ListCommandsCommand extends BaseCommand {
 
   static async run(message: Message) {
     message.reply(`\`\*\*!abrir-agendamento\*\*\`
-    abrir agendamento manda uma mensagem mencionanto todos e liberando o 
+    manda uma mensagem mencionanto todos e liberando o canal
+    O bot já faz isso automaticamente às 19h30
     \`\*\*!fechar-agendamento\`\*\*
-    \`\*\*!liberar\`\*\*`)
+    manda uma mensagem mencionanto todos e fechando o canal
+    O bot já faz isso automaticamente quando os 8 horários foram preenchidos
+    \`\*\*!permitir-repeticao\`\*\*
+    manda uma mensagem mencionanto todos e libera agendamento pra quem já fez
+    O bot já faz isso automaticamente às 22h30
+    \`\*\*!agendar <nomeDoCanal> <horárioPreferencial> <horárioAlternativo>\`\*\*
+    manda uma mensagem mencionanto todos e libera agendamento pra quem já fez
+    O bot já faz isso automaticamente às 22h30
+    \`\*\*!liberar <nomeDoCanal> <dia>\`\*\*
+    remove o agendamento desse usuário
+    \`\*\*!alterar <nomeDoCanalAnterior> <nomeDoCanalNovo> <dia>\`\*\*
+    troca o agendamento desse usuário para o outro
+    \`\*\*!listar-agendamentos <dia>\`\*\*
+    mostra todos os agendamentos salvos no banco de dados para o dia selecionado.
+    Se o dia não for adicionado, mostra para o dia em que o comando foi enviado.
+    \`\*\*!comandos\`\*\*
+    lista todos os comandos do bot
+    `)
 
   }
 }

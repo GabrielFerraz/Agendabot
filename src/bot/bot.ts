@@ -52,11 +52,12 @@ export class Bot {
       // const channel = message.channel as TextChannel;
       // console.log(message.channel.name);
 
-      console.log("Message received! Contents: ", message.content);
+      // console.log("Message received! Contents: ", message.content);
 
       this.messageResponder.handle(message).then(() => {
         console.log("Response sent!");
       }).catch(() => {
+        console.log("Message Errir! Contents: ", message.content);
         console.log("Response not sent.")
       })
     });
