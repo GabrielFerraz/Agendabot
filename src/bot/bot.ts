@@ -95,7 +95,7 @@ export class Bot {
     schedule.scheduleJob('0 32 17 * * 1-6', () => {
       this.alertStream(5);
     });
-    schedule.scheduleJob('0 10 17 * * 1-6', () => {
+    schedule.scheduleJob('0 21 18 * * 1-6', () => {
       this.getAttendenceList(5);
     });
     schedule.scheduleJob('0 02 19 * * 1-6', () => {
