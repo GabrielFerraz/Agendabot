@@ -12,8 +12,11 @@ export class ListCommand extends BaseCommand {
     if (!message.member.roles.cache.some(r => r.name === "Administrador") && !message.member.roles.cache.some(r => r.name === "Moderador")) {
       return;
     }
-    const day = args[1] ? args[1] : moment.default().weekday();
+    const day = args[0] ? args[0] : moment.default().weekday();
     const all = await TimeSlot.find({day}, null, {sort: { slot: 1 }});
+    if (all.length == 0) {
+      return message.reply("Não há agendamentos para esse dia");
+    }
     console.log(all);
     let string = `\n **Agendamentos de Hoje:**\n`;
     for (const streamer of all) {
