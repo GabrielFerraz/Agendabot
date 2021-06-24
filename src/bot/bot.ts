@@ -89,7 +89,7 @@ export class Bot {
     schedule.scheduleJob('0 02 16 * * 1-6', () => {
       this.alertStream(4);
     });
-    schedule.scheduleJob('0 40 16 * * 1-6', () => {
+    schedule.scheduleJob('0 46 16 * * 1-6', () => {
       this.getAttendenceList(4);
     });
     schedule.scheduleJob('0 32 17 * * 1-6', () => {
