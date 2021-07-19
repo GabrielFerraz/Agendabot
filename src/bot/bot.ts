@@ -68,64 +68,8 @@ export class Bot {
   }
 
   initJobs() {
-    schedule.scheduleJob('0 20 11 * * 1-6', () => {
-      this.alertStream(1);
-    });
-    schedule.scheduleJob('0 10 12 * * 1-6', () => {
-      this.getAttendenceList(1);
-    });
-    schedule.scheduleJob('0 02 13 * * 1-6', () => {
-      this.alertStream(2);
-    });
-    schedule.scheduleJob('0 40 13 * * 1-6', () => {
-      this.getAttendenceList(2);
-    });
-    schedule.scheduleJob('0 32 14 * * 1-6', () => {
-      this.alertStream(3);
-    });
-    schedule.scheduleJob('0 10 15 * * 1-6', () => {
-      this.getAttendenceList(3);
-    });
-    schedule.scheduleJob('0 02 16 * * 1-6', () => {
-      this.alertStream(4);
-    });
-    schedule.scheduleJob('0 46 16 * * 1-6', () => {
-      this.getAttendenceList(4);
-    });
-    schedule.scheduleJob('0 32 17 * * 1-6', () => {
-      this.alertStream(5);
-    });
-    schedule.scheduleJob('0 21 18 * * 1-6', () => {
-      this.getAttendenceList(5);
-    });
-    schedule.scheduleJob('0 02 19 * * 1-6', () => {
-      this.alertStream(6);
-    });
-    schedule.scheduleJob('0 40 19 * * 1-6', () => {
-      this.getAttendenceList(6);
-    });
-    schedule.scheduleJob('0 35 20 * * 1-6', () => {
-      this.alertStream(7);
-    });
-    schedule.scheduleJob('0 30 21 * * 1-6', () => {
-      this.getAttendenceList(7);
-    });
-    schedule.scheduleJob('0 02 22 * * 1-6', () => {
-      this.alertStream(8);
-    });
-    schedule.scheduleJob('0 00 23 * * 1-6', () => {
-      this.getAttendenceList(8);
-    });
-    schedule.scheduleJob('0 30 19 * * 0-5', () => {
-      this.toggleSchedule(true);
-    });
-    schedule.scheduleJob('0 30 22 * * 0-5', () => {
-      this.allowReschedule();
-    });
-    schedule.scheduleJob('0 0 10 * * 0', () => {
-      this.clearDb();
-    });
-    // this.alertStream(1);
+    this.alertJobs();
+    this.attendenceJobs();
   }
 
   async alertStream(slot) {
@@ -284,25 +228,25 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
     schedule.scheduleJob('0 20 11 * * 1-6', () => {
       this.alertStream(1);
     });
-    schedule.scheduleJob('0 02 13 * * 1-6', () => {
+    schedule.scheduleJob('0 08 13 * * 1-6', () => {
       this.alertStream(2);
     });
-    schedule.scheduleJob('0 32 14 * * 1-6', () => {
+    schedule.scheduleJob('0 38 14 * * 1-6', () => {
       this.alertStream(3);
     });
-    schedule.scheduleJob('0 02 16 * * 1-6', () => {
+    schedule.scheduleJob('0 08 16 * * 1-6', () => {
       this.alertStream(4);
     });
-    schedule.scheduleJob('0 32 17 * * 1-6', () => {
+    schedule.scheduleJob('0 38 17 * * 1-6', () => {
       this.alertStream(5);
     });
-    schedule.scheduleJob('0 02 19 * * 1-6', () => {
+    schedule.scheduleJob('0 08 19 * * 1-6', () => {
       this.alertStream(6);
     });
-    schedule.scheduleJob('0 35 20 * * 1-6', () => {
+    schedule.scheduleJob('0 38 20 * * 1-6', () => {
       this.alertStream(7);
     });
-    schedule.scheduleJob('0 02 22 * * 1-6', () => {
+    schedule.scheduleJob('0 08 22 * * 1-6', () => {
       this.alertStream(8);
     });
   }
