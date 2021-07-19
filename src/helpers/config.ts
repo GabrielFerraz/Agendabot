@@ -22,6 +22,7 @@ class Config {
   public presenca: string = process.env.PRESENCA!;
   public reservarHorarios: string = process.env.RESERVAR_HORARIOS!;
   public staff: string = process.env.STAFF!;
+  public staffPresenca: string = process.env.STAFF_PRESENCA!;
 }
 
 export const config =  new Config();

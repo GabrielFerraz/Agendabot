@@ -255,11 +255,12 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
 
   async clearDb() {
     await TimeSlot.updateMany({}, { $set: { week: moment().weekYear() } });
-    await TimeSlotHistory.insertMany(await TimeSlot.find({}));
+    const weekTime = await TimeSlot.find({});
+    await TimeSlotHistory.insertMany(weekTime);
     await TimeSlot.deleteMany({});
   }
 
-  async getAttendenceList(slot) {
+  async getAttendenceList(slot, staff?: boolean) {
     console.log(`Slot: ${slot}`);
     const today = moment().weekday();
     console.log(`today: ${today}`);
@@ -268,13 +269,124 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
       slot: slot
     });
     await axios.get(`http://tmi.twitch.tv/group/user/${doc.username}/chatters`).then(async (res) => {
-      const attendence = await this.client.channels.fetch(config.presenca) as TextChannel;
+      const channelId = staff ? config.staffPresenca : config.presenca;
+      const attendence = await this.client.channels.fetch(channelId) as TextChannel;
       const viewers = res.data.chatters.viewers.map((el) => el.replace(/_/g, "\\_"));
       const moderators = res.data.chatters.moderators.map((el) => el.replace(/_/g, "\\_"));
       const vips = res.data.chatters.vips.map((el) => el.replace(/_/g, "\\_"));
       console.log(viewers);
-      let message = `Presença da live de ${this.slots[slot]}\n` + moderators.join(`\n`) + vips.join(`\n`) + viewers.join(`\n`);
+      let message = `Presença da live de ${this.slots[slot]}\n` + moderators.join(`\n`) + `\n` + vips.join(`\n`) + `\n` + viewers.join(`\n`);
       await attendence.send(message);
     })
+  }
+
+  alertJobs() {
+    schedule.scheduleJob('0 20 11 * * 1-6', () => {
+      this.alertStream(1);
+    });
+    schedule.scheduleJob('0 02 13 * * 1-6', () => {
+      this.alertStream(2);
+    });
+    schedule.scheduleJob('0 32 14 * * 1-6', () => {
+      this.alertStream(3);
+    });
+    schedule.scheduleJob('0 02 16 * * 1-6', () => {
+      this.alertStream(4);
+    });
+    schedule.scheduleJob('0 32 17 * * 1-6', () => {
+      this.alertStream(5);
+    });
+    schedule.scheduleJob('0 02 19 * * 1-6', () => {
+      this.alertStream(6);
+    });
+    schedule.scheduleJob('0 35 20 * * 1-6', () => {
+      this.alertStream(7);
+    });
+    schedule.scheduleJob('0 02 22 * * 1-6', () => {
+      this.alertStream(8);
+    });
+  }
+
+  attendenceJobs() {
+    // 11h30 às 13h
+    schedule.scheduleJob('0 40 11 * * 1-6', () => {
+      this.getAttendenceList(1, true);
+    });
+    schedule.scheduleJob('0 10 12 * * 1-6', () => {
+      this.getAttendenceList(1, false);
+    });
+    schedule.scheduleJob('0 50 12 * * 1-6', () => {
+      this.getAttendenceList(1, true);
+    });
+
+    schedule.scheduleJob('0 10 13 * * 1-6', () => {
+      this.getAttendenceList(2, true);
+    });
+    schedule.scheduleJob('0 40 13 * * 1-6', () => {
+      this.getAttendenceList(2, false);
+    });
+    schedule.scheduleJob('0 20 14 * * 1-6', () => {
+      this.getAttendenceList(2, true);
+    });
+
+    schedule.scheduleJob('0 10 15 * * 1-6', () => {
+      this.getAttendenceList(3, true);
+    });
+    schedule.scheduleJob('0 10 15 * * 1-6', () => {
+      this.getAttendenceList(3, false);
+    });
+    schedule.scheduleJob('0 10 15 * * 1-6', () => {
+      this.getAttendenceList(3, true);
+    });
+
+    schedule.scheduleJob('0 46 16 * * 1-6', () => {
+      this.getAttendenceList(4, true);
+    });
+    schedule.scheduleJob('0 46 16 * * 1-6', () => {
+      this.getAttendenceList(4, false);
+    });
+    schedule.scheduleJob('0 46 16 * * 1-6', () => {
+      this.getAttendenceList(4, true);
+    });
+    
+    schedule.scheduleJob('0 21 18 * * 1-6', () => {
+      this.getAttendenceList(5, true);
+    });
+    schedule.scheduleJob('0 21 18 * * 1-6', () => {
+      this.getAttendenceList(5, false);
+    });
+    schedule.scheduleJob('0 21 18 * * 1-6', () => {
+      this.getAttendenceList(5, true);
+    });
+
+    schedule.scheduleJob('0 40 19 * * 1-6', () => {
+      this.getAttendenceList(6, true);
+    });
+    schedule.scheduleJob('0 40 19 * * 1-6', () => {
+      this.getAttendenceList(6, false);
+    });
+    schedule.scheduleJob('0 40 19 * * 1-6', () => {
+      this.getAttendenceList(6, true);
+    });
+
+    schedule.scheduleJob('0 30 21 * * 1-6', () => {
+      this.getAttendenceList(7, true);
+    });
+    schedule.scheduleJob('0 30 21 * * 1-6', () => {
+      this.getAttendenceList(7, false);
+    });
+    schedule.scheduleJob('0 30 21 * * 1-6', () => {
+      this.getAttendenceList(7, true);
+    });
+
+    schedule.scheduleJob('0 00 23 * * 1-6', () => {
+      this.getAttendenceList(8, true);
+    });
+    schedule.scheduleJob('0 00 23 * * 1-6', () => {
+      this.getAttendenceList(8, false);
+    });
+    schedule.scheduleJob('0 00 23 * * 1-6', () => {
+      this.getAttendenceList(8, true);
+    });
   }
 }
