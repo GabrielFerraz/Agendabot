@@ -70,6 +70,15 @@ export class Bot {
   initJobs() {
     this.alertJobs();
     this.attendenceJobs();
+    schedule.scheduleJob('0 30 19 * * 0-5', () => {
+      this.toggleSchedule(true);
+    });
+    schedule.scheduleJob('0 30 22 * * 0-5', () => {
+      this.allowReschedule();
+    });
+    schedule.scheduleJob('0 0 10 * * 0', () => {
+      this.clearDb();
+    });
   }
 
   async alertStream(slot) {
