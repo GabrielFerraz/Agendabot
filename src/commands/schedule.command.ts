@@ -74,8 +74,8 @@ export class ScheduleCommand extends BaseCommand {
 
       await doc.save();
 
-      await message.reply(`Horário das ${slots[selectedSlot]} agendado`);
-      await message.react('✅');
+      await message.reply(`Horário das ${slots[selectedSlot]} em análise`);
+      await message.react('⚠️');
       
 
       const all = await TimeSlot.find({day: scheduleDay});
