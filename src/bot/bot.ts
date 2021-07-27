@@ -45,7 +45,8 @@ export class Bot {
       const channel = message.channel as any;
       const allowedChannels = [
         "》🔐staff-discussão",
-        "『📒』reservar-horários"
+        "『📒』reservar-horários",
+        "》🔐bot"
       ]
       if (message.author.bot || !channel.name || !allowedChannels.includes(channel.name)) {
         // console.log('Ignoring bot message!')
