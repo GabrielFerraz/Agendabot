@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { Bot } from "../bot/bot";
 import container from "../inversify.config";
 import { TYPES } from "../types/types";
+import { config } from "../helpers/config";
 
 export class CloseScheduleCommand extends BaseCommand {
   static command: string = "fechar-agendamento";
@@ -19,9 +20,9 @@ export class CloseScheduleCommand extends BaseCommand {
 
       // find specific role - enter name of a role you create here
       let streamerRole = roles.cache.find(r => r.name === 'Streamer');
-      const general = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      const general = await bot.client.channels.fetch(config.chatLivre) as TextChannel;
       await general.send(`@everyone O agendamento está encerrado`);
-      const channel = await bot.client.channels.fetch("850750258568757321") as TextChannel;
+      const channel = await bot.client.channels.fetch(config.chatLivre) as TextChannel;
       const permissions = channel.permissionOverwrites.map(rolePermissions => {
         // let role = message.guild.roles.cache.get();
         if (rolePermissions.id === streamerRole.id) {
