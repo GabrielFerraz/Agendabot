@@ -37,6 +37,7 @@ export class Bot {
     this.messageResponder = messageResponder;
     this.initJobs();
     this.scheduleMessageId = "";
+    console.log("Current Time", moment().format("HH:mm").toString());
   }
 
   public listen(): Promise<string> {
