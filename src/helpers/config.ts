@@ -14,6 +14,17 @@ export const slots = {
   8: "22:00 às 23:30"
 };
 
+export const days = {
+  "segunda": 1,
+  "terça": 2,
+  "terca": 2,
+  "quarta": 3,
+  "quinta": 4,
+  "sexta": 5,
+  "sábado": 6,
+  "sabado": 6,
+};
+
 export var allowed = false;
 
 class Config {

@@ -28,7 +28,7 @@ export class ScheduleCommand extends BaseCommand {
       console.log(args[2]);
       const format = 'hh:mm:ss';
       const checkTime = moment.default().isBetween(moment.default('00:00:00', format), moment.default('11:00:00', format))
-      const scheduleDay = checkTime ? moment.default().weekday() : moment.default().add(1, 'd').weekday();
+      const scheduleDay = checkTime ? moment.default().weekday() : moment.default().subtract(1, 'd').weekday();
 
       const primaryTimeSlot = await TimeSlot.find({ slot: primarySlot, day: scheduleDay });
       const alternativeTimeSlot = await TimeSlot.find({ slot: alternativeSlot, day: scheduleDay });
