@@ -2,9 +2,10 @@ import { Message } from "discord.js";
 import { TimeSlotDocument, TimeSlot } from "../db/TimeSlot";
 import { BaseCommand } from "./base.command";
 import * as moment from 'moment';
+import { days } from "../helpers/config";
 
 export class ReleaseScheduleCommand extends BaseCommand {
-  static command: string = "liberar";
+  static command: string = "remover";
   static slots = {
     1: "11:30 às 13:00",
     2: "13:00 às 14:30",
@@ -22,10 +23,10 @@ export class ReleaseScheduleCommand extends BaseCommand {
       if (!message.member.roles.cache.some(r => r.name === "Administrador") && !message.member.roles.cache.some(r => r.name === "Moderador")) {
         return;
       }
-      const day = args[1] ? args[1] : moment.default().weekday();
+      const day = args[1] ? days[args[1].toLocaleLowerCase()] : moment.default().weekday();
       console.log(day);
       const res = await TimeSlot.deleteOne({
-        day,
+        day: day,
         slot: args[0]
       })
 

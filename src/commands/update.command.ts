@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import { BaseCommand } from "./base.command";
 import { TimeSlot, TimeSlotDocument } from "../db/TimeSlot";
 import * as moment from 'moment';
+import { days } from "../helpers/config";
 
 export class UpdateCommand extends BaseCommand {
   static command: string = "alterar";
@@ -13,7 +14,7 @@ export class UpdateCommand extends BaseCommand {
       }
       const initialUser = args[0];
       const newUser: string = args[1];
-      const day = args[2] ? args[2] : moment.default().weekday();
+      const day = args[1] ? days[args[1].toLocaleLowerCase()] : moment.default().weekday();
       const filter = {
         user: initialUser,
         day: day

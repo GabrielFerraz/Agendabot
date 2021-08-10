@@ -23,7 +23,7 @@ export class ListCommandsCommand extends BaseCommand {
     \`!agendar <nomeDoCanal> <horárioPreferencial> <horárioAlternativo>\`
     manda uma mensagem mencionanto todos e libera agendamento pra quem já fez
     O bot já faz isso automaticamente às 22h30
-    \`!liberar <nomeDoCanal> <dia>\`
+    \`!remover <horário> <dia>\`
     remove o agendamento desse usuário
     \`!alterar <nomeDoCanalAnterior> <nomeDoCanalNovo> <dia>\`
     troca o agendamento desse usuário para o outro
