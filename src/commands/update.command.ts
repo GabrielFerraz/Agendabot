@@ -14,7 +14,7 @@ export class UpdateCommand extends BaseCommand {
       }
       const initialUser = args[0];
       const newUser: string = args[1];
-      const day = args[1] ? days[args[1].toLocaleLowerCase()] : moment.default().weekday();
+      const day = args[2] ? days[args[2].toLocaleLowerCase()] : moment.default().weekday();
       const filter = {
         user: initialUser,
         day: day
