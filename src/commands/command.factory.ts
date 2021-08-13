@@ -13,6 +13,8 @@ import { InsertCommand } from "./insert.command";
 export class CommandFactory {
 
   public static getCommand(command: string): any {
+    console.log("command", command);
+    console.log("check", command === "adicionar");
     switch (command) {
       case PingCommand.command:
         return PingCommand;

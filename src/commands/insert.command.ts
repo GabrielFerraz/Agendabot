@@ -24,8 +24,8 @@ export class InsertCommand extends BaseCommand {
       const doc = await TimeSlot.findOne(filter)
       console.log(doc);
 
-      if (!doc) {
-        return message.reply(`Horário ${slot} na(o) ${days[args[2].toLocaleLowerCase()]} preenchido`)
+      if (doc) {
+        return message.reply(`Horário ${slot} no(a) ${args[2].toLocaleLowerCase()} já preenchido`)
       }
 
       const res: TimeSlotDocument = new TimeSlot({
@@ -36,7 +36,7 @@ export class InsertCommand extends BaseCommand {
       });
       await res.save();
 
-      await message.reply(`Horário de ${user} - ${slot} na(o) ${days[args[2].toLocaleLowerCase()]} inserido`);
+      await message.reply(`Horário de ${user} - ${slot} no(a) ${args[2].toLocaleLowerCase()} inserido`);
 
     } catch (e) {
       console.log(e);
