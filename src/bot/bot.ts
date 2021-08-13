@@ -209,10 +209,11 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
   }
 
   async clearDb() {
-    await TimeSlot.updateMany({}, { $set: { week: moment().weekYear() } });
-    const weekTime = await TimeSlot.find({});
-    await TimeSlotHistory.insertMany(weekTime);
-    await TimeSlot.deleteMany({});
+    await TimeSlot.deleteMany({}).then(() => {
+      console.log("cleared");
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 
   async getAttendenceList(slot, staff?: boolean) {
