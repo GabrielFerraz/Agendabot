@@ -8,6 +8,7 @@ import { OpenScheduleCommand } from "./open-schedule.command";
 import { CloseScheduleCommand } from "./close-schedule.command";
 import { UpdateCommand } from "./update.command";
 import { ListCommandsCommand } from "./list-commands.command";
+import { InsertCommand } from "./insert.command";
 
 export class CommandFactory {
 
@@ -31,6 +32,8 @@ export class CommandFactory {
         return UpdateCommand;
       case ListCommandsCommand.command:
         return ListCommandsCommand;
+      case InsertCommand.command:
+        return InsertCommand;
       default:
         return undefined;
     }
