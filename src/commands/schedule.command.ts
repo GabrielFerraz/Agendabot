@@ -13,11 +13,11 @@ export class ScheduleCommand extends BaseCommand {
 
   static async run(message: Message, args: any[]) {
     try {
-      if (!/!agendar [\w]+([ ]+[1-8]{1}){1,2}$/.test(message.content)) {
-        return await message.reply(`Por Favor mandar no formato:\n\`!agendar <nomeDoSeuCanal> <HorarioPrincipal de 0 a 8> <horárioSecundário de 0 a 8(OPCIONAL)>\`\n ex.: \`!agendar Bot 1 2\``);
+      if (!/!agendar [\w]+([ ]+[1-6]{1}){1,2}$/.test(message.content)) {
+        return await message.reply(`Por Favor mandar no formato:\n\`!agendar <nomeDoSeuCanal> <HorarioPrincipal de 0 a 6> <horárioSecundário de 0 a 6(OPCIONAL)>\`\n ex.: \`!agendar Bot 1 2\``);
       }
       if (!args[1]) {
-        return await message.reply(`Por Favor mandar o horário preferencial de 1 a 8.`);
+        return await message.reply(`Por Favor mandar o horário preferencial de 1 a 6.`);
       }
       let bot = container.get<Bot>(TYPES.Bot);
       const user: string = args[0];
@@ -81,7 +81,7 @@ export class ScheduleCommand extends BaseCommand {
       
 
       const all = await TimeSlot.find({day: scheduleDay});
-      if (all.length === 8) {
+      if (all.length === 6) {
         bot.toggleSchedule(false);
       }
 
