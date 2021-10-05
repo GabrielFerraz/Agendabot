@@ -237,112 +237,86 @@ LEMBRANDO QUE TEMOS OS ADMS QUE SÃO RESPONSÁVEIS PELA LISTA DE PRESENÇA, SABE
   }
 
   alertJobs() {
-    schedule.scheduleJob('0 20 11 * * 1-6', () => {
+    schedule.scheduleJob('0 40 10 * * 1-5', () => {
       this.alertStream(1);
     });
-    schedule.scheduleJob('0 08 13 * * 1-6', () => {
+    schedule.scheduleJob('0 08 13 * * 1-5', () => {
       this.alertStream(2);
     });
-    schedule.scheduleJob('0 38 14 * * 1-6', () => {
+    schedule.scheduleJob('0 08 15 * * 1-5', () => {
       this.alertStream(3);
     });
-    schedule.scheduleJob('0 08 16 * * 1-6', () => {
+    schedule.scheduleJob('0 08 17 * * 1-5', () => {
       this.alertStream(4);
     });
-    schedule.scheduleJob('0 38 17 * * 1-6', () => {
+    schedule.scheduleJob('0 08 19 * * 1-5', () => {
       this.alertStream(5);
     });
-    schedule.scheduleJob('0 08 19 * * 1-6', () => {
+    schedule.scheduleJob('0 08 21 * * 1-5', () => {
       this.alertStream(6);
-    });
-    schedule.scheduleJob('0 38 20 * * 1-6', () => {
-      this.alertStream(7);
-    });
-    schedule.scheduleJob('0 08 22 * * 1-6', () => {
-      this.alertStream(8);
     });
   }
 
   attendenceJobs() {
     // 11h30 às 13h
-    schedule.scheduleJob('0 50 11 * * 1-6', () => {
-      this.getAttendenceList(1, true);
-    });
-    schedule.scheduleJob('0 10 12 * * 1-6', () => {
+    // schedule.scheduleJob('0 50 11 * * 1-5', () => {
+    //   this.getAttendenceList(1, true);
+    // });
+    schedule.scheduleJob('0 41 12 * * 1-5', () => {
       this.getAttendenceList(1, false);
     });
-    schedule.scheduleJob('0 50 12 * * 1-6', () => {
-      this.getAttendenceList(1, true);
-    });
+    // schedule.scheduleJob('0 50 12 * * 1-5', () => {
+    //   this.getAttendenceList(1, true);
+    // });
 
-    schedule.scheduleJob('0 20 13 * * 1-6', () => {
-      this.getAttendenceList(2, true);
-    });
-    schedule.scheduleJob('0 40 13 * * 1-6', () => {
+    // schedule.scheduleJob('0 20 13 * * 1-5', () => {
+    //   this.getAttendenceList(2, true);
+    // });
+    schedule.scheduleJob('0 46 14 * * 1-5', () => {
       this.getAttendenceList(2, false);
     });
-    schedule.scheduleJob('0 20 14 * * 1-6', () => {
-      this.getAttendenceList(2, true);
-    });
+    // schedule.scheduleJob('0 20 14 * * 1-5', () => {
+    //   this.getAttendenceList(2, true);
+    // });
 
-    schedule.scheduleJob('0 50 14 * * 1-6', () => {
-      this.getAttendenceList(3, true);
-    });
-    schedule.scheduleJob('0 10 15 * * 1-6', () => {
+    // schedule.scheduleJob('0 50 14 * * 1-5', () => {
+    //   this.getAttendenceList(3, true);
+    // });
+    schedule.scheduleJob('0 43 16 * * 1-5', () => {
       this.getAttendenceList(3, false);
     });
-    schedule.scheduleJob('0 50 15 * * 1-6', () => {
-      this.getAttendenceList(3, true);
-    });
+    // schedule.scheduleJob('0 50 15 * * 1-5', () => {
+    //   this.getAttendenceList(3, true);
+    // });
 
-    schedule.scheduleJob('0 20 16 * * 1-6', () => {
-      this.getAttendenceList(4, true);
-    });
-    schedule.scheduleJob('0 46 16 * * 1-6', () => {
+    // schedule.scheduleJob('0 20 16 * * 1-5', () => {
+    //   this.getAttendenceList(4, true);
+    // });
+    schedule.scheduleJob('0 36 18 * * 1-5', () => {
       this.getAttendenceList(4, false);
     });
-    schedule.scheduleJob('0 20 17 * * 1-6', () => {
-      this.getAttendenceList(4, true);
-    });
+    // schedule.scheduleJob('0 20 17 * * 1-5', () => {
+    //   this.getAttendenceList(4, true);
+    // });
     
-    schedule.scheduleJob('0 50 17 * * 1-6', () => {
-      this.getAttendenceList(5, true);
-    });
-    schedule.scheduleJob('0 21 18 * * 1-6', () => {
+    // schedule.scheduleJob('0 50 17 * * 1-5', () => {
+    //   this.getAttendenceList(5, true);
+    // });
+    schedule.scheduleJob('0 30 20 * * 1-5', () => {
       this.getAttendenceList(5, false);
     });
-    schedule.scheduleJob('0 50 18 * * 1-6', () => {
-      this.getAttendenceList(5, true);
-    });
+    // schedule.scheduleJob('0 50 18 * * 1-5', () => {
+    //   this.getAttendenceList(5, true);
+    // });
 
-    schedule.scheduleJob('0 20 19 * * 1-6', () => {
-      this.getAttendenceList(6, true);
-    });
-    schedule.scheduleJob('0 40 19 * * 1-6', () => {
+    // schedule.scheduleJob('0 20 19 * * 1-5', () => {
+    //   this.getAttendenceList(6, true);
+    // });
+    schedule.scheduleJob('0 46 22 * * 1-5', () => {
       this.getAttendenceList(6, false);
     });
-    schedule.scheduleJob('0 20 20 * * 1-6', () => {
-      this.getAttendenceList(6, true);
-    });
-
-    schedule.scheduleJob('0 50 20 * * 1-6', () => {
-      this.getAttendenceList(7, true);
-    });
-    schedule.scheduleJob('0 30 21 * * 1-6', () => {
-      this.getAttendenceList(7, false);
-    });
-    schedule.scheduleJob('0 50 21 * * 1-6', () => {
-      this.getAttendenceList(7, true);
-    });
-
-    schedule.scheduleJob('0 20 22 * * 1-6', () => {
-      this.getAttendenceList(8, true);
-    });
-    schedule.scheduleJob('0 00 23 * * 1-6', () => {
-      this.getAttendenceList(8, false);
-    });
-    schedule.scheduleJob('0 20 23 * * 1-6', () => {
-      this.getAttendenceList(8, true);
-    });
+    // schedule.scheduleJob('0 20 20 * * 1-5', () => {
+    //   this.getAttendenceList(6, true);
+    // });
   }
 }
