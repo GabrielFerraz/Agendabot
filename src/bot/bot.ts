@@ -16,14 +16,12 @@ export class Bot {
   private readonly token: string;
   private messageResponder: MessageResponder;
   private slots = {
-    1: "11:30 às 13:00",
-    2: "13:00 às 14:30",
-    3: "14:30 às 16:00",
-    4: "16:00 às 17:30",
-    5: "17:30 às 19:00",
-    6: "19:00 às 20:30",
-    7: "20:30 às 22:00",
-    8: "22:00 às 23:30"
+    1: "11:00 às 13:00",
+    2: "13:00 às 15:00",
+    3: "15:00 às 17:00",
+    4: "17:00 às 19:00",
+    5: "19:00 às 21:00",
+    6: "21:00 às 23:00"
   }
   public allowed = false;
   public scheduleMessageId: string;
